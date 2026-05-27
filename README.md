@@ -26,7 +26,7 @@ Cold Email Generator is a Streamlit application that reads a job posting URL, ex
 ## Project Structure
 
 ```text
-cold_email/
+cold-email-generator/
 ├── app/
 │   ├── main.py                     # Streamlit app entry point
 │   ├── email_chain.py              # Groq/LangChain extraction + email generation
@@ -54,9 +54,9 @@ cold_email/
 
 ```bash
 cd app
-python -m venv venv
-venv\Scripts\activate
-pip install streamlit langchain langchain-community langchain-groq chromadb pandas python-dotenv
+python -m venv .venv
+.venv\Scripts\activate
+pip install streamlit langchain langchain-community langchain-groq chromadb pandas python-dotenv beautifulsoup4
 ```
 
 ## Environment Variables
@@ -68,6 +68,44 @@ GROQ_API_KEY=your_groq_api_key
 ```
 
 Do not commit `.env` to GitHub.
+
+## Live Server
+
+Start the local Streamlit live server from the `app` folder:
+
+```bash
+.venv\Scripts\activate
+streamlit run main.py --server.port 8501
+```
+
+Then open:
+
+```text
+http://localhost:8501
+```
+
+The app page can load without `GROQ_API_KEY`, but email generation requires the key. If the key is missing, add it to `app/.env` and restart the server.
+
+## Deploy
+
+This app is ready for Streamlit Community Cloud deployment.
+
+1. Push this repository to GitHub.
+2. Open `https://share.streamlit.io`.
+3. Create a new app from this repository.
+4. Set the entrypoint file to:
+
+```text
+app/main.py
+```
+
+5. Add this secret in the app settings:
+
+```text
+GROQ_API_KEY="your_groq_api_key"
+```
+
+6. Deploy the app. Streamlit will install dependencies from `requirements.txt`.
 
 ## Run
 
